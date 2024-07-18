@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import UserTable from './UserTable';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const User = () => {
-    const [users, setUsers] = useState([{
-        id: 1,
-        name: 'suresh k',
-        email: 'email@gmail.com',
-        age: 20
-    }])
+  const [users, setUsers] = useState([])
+
+  const getUsers = async () => {
+    try {
+      const result = await axios.get('http://localhost:3001')
+      setUsers(result.data)
+      console.log(result.data);
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+    useEffect(()=>{
+      getUsers()
+    }, [])
 
   return (
     <div className="container mx-auto px-4 sm:px-8 max-w-3xl">
@@ -19,10 +29,10 @@ const User = () => {
               <thead>
                 <tr>
                   <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Id
+                    First Name
                   </th>
                   <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    Name
+                    Last Name
                   </th>
                   <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                     Email
@@ -36,7 +46,9 @@ const User = () => {
                 </tr>
               </thead>
               <tbody>
-                <UserTable users={users} />
+                
+                <UserTable getUsers={getUsers} users={users}/>
+                
               </tbody>
             </table>
           </div>

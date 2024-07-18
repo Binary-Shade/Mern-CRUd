@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState , useEffect} from 'react'
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import User from './components/User'
@@ -12,9 +12,9 @@ function App() {
       <div className='App w-full h-screen flex items-center justify-center'>
         <BrowserRouter>
           <Routes>
-            <Route path='/' element={<User />}></Route>
-            <Route path='/create' element={<Create />}></Route>
-            <Route path='/update' element={<Update />}></Route>
+            <Route path='/' element={<User/>}></Route>
+            <Route path='/create' element={<Create/>}></Route>
+            <Route path='/update/:id' element={<Update />}></Route>
           </Routes>
         </BrowserRouter>
       </div>
