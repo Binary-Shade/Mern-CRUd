@@ -21,7 +21,7 @@ app.use(cors(corsOptions))
 
 async function main(){
     console.log('connecting to database !');
-    await mongoose.connect(process.env.MONGO)
+    await mongoose.connect('mongodb+srv://02042003sureshk:p2ADGwpSFIFbeRxg@crud.py4bcac.mongodb.net/?retryWrites=true&w=majority&appName=crud')
     console.log('database connected ->'); 
 }
 
