@@ -41,10 +41,6 @@ app.get('/getUser/:id', async (req, res)=>{
     res.send(result)
 })
 
-app.post('/', (req, res)=>{
-    res.send('server working')
-})
-
 app.put('/updateCan/:id', async (req, res) => {
     try {
         const id = req.params.id;
