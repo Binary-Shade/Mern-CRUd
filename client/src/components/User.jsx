@@ -8,7 +8,7 @@ const User = () => {
 
   const getUsers = async () => {
     try {
-      const result = await axios.get('http://localhost:3001')
+      const result = await axios.get('https://mern-crud-server-chi.vercel.app/')
       setUsers(result.data)
       console.log(result.data);
     }catch(err){
