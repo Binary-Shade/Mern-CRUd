@@ -12,7 +12,7 @@ app.use(express.json())
 dotenv.config()
 
 const corsOptions = {
-    origin: '*', // Replace with your front-end URL
+    origin: 'https://mern-crud-frontend-six.vercel.app/', // Replace with your front-end URL
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Specify allowed HTTP methods
     credentials: true, // Include credentials (like cookies) in the requests
     optionsSuccessStatus: 204 // For legacy browsers
