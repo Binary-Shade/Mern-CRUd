@@ -4,16 +4,24 @@ const helmet = require('helmet') //helps protect your web application from commo
 const cors = require('cors') //for managing cross-origin requests
 const PORT = 3001
 const userModel = require('./models/UserSchema')
+const dotenv = require('dotenv')
 
 const app = express()
-app.use(cors())
 app.use(helmet())
 app.use(express.json())
+dotenv.config()
 
+const corsOptions = {
+    origin: '*', // Replace with your front-end URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', // Specify allowed HTTP methods
+    credentials: true, // Include credentials (like cookies) in the requests
+    optionsSuccessStatus: 204 // For legacy browsers
+};
+app.use(cors(corsOptions))
 
 async function main(){
     console.log('connecting to database !');
-    await mongoose.connect('mongodb://127.0.0.1:27017/Userdb')
+    await mongoose.connect(process.env.MONGO)
     console.log('database connected ->'); 
 }
 
@@ -33,6 +41,26 @@ app.get('/getUser/:id', async (req, res)=>{
     res.send(result)
 })
 
+app.put('/updateCan/:id', async (req, res) => {
+    try {
+        const id = req.params.id;
+        const { total } = req.body;
+
+        if (typeof total !== 'number') {
+            return res.status(400).json({ error: 'Invalid total amount' });
+        }
+
+        const result = await userModel.findByIdAndUpdate(id, { total }, { new: true });
+
+        if (!result) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Total updated successfully', user: result });
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred while updating the total amount' });
+    }
+});
 app.put('/Update/:id', async(req, res)=>{
     try {
         const id = req.params.id
@@ -40,8 +68,8 @@ app.put('/Update/:id', async(req, res)=>{
             _id: id,
             firstName: req.body.firstName,
             lastName: req.body.lastName,
-            age: req.body.age,
-            email: req.body.email
+            cans: req.body.cans,
+            total: req.body.total
         })
         
         if(!result) {
