@@ -13,7 +13,7 @@ const Update = () => {
 
   useEffect(()=>{
     const getDetails = async () =>{
-      const result = await axios.get('http://localhost:3001/getUser/'+id)
+      const result = await axios.get('https://mern-crud-server-chi.vercel.app/getUser/'+id)
       setFirst(result.data.firstName)
       setLast(result.data.lastName)
       setCans(result.data.cans)
@@ -28,7 +28,7 @@ const Update = () => {
       // Calculate the updated total after payment
       const updatedTotal = total - paid;
 
-      const response = await axios.put(`http://localhost:3001/Update/`+id,  {
+      const response = await axios.put(`https://mern-crud-server-chi.vercel.app/Update/`+id,  {
         firstName,
         lastName,
         cans,
