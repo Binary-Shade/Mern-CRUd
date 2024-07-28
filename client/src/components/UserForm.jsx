@@ -17,7 +17,7 @@ const UserForm = ({header, btnName}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const result = await axios.post('http://localhost:3001/Userdb', {
+      const result = await axios.post('https://mern-crud-server-chi.vercel.app/Userdb', {
         firstName,
         lastName,
         cans,
