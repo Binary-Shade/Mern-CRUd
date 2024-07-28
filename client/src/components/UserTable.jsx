@@ -8,7 +8,7 @@ import { GiWaterGallon } from "react-icons/gi";
 const UserTable = ({users, getUsers}) => {  
   const handleDelete = async(id) => {
     try {
-      await axios.delete(`http://localhost:3001/deleteUser/${id}`)
+      await axios.delete(`https://mern-crud-server-chi.vercel.app/deleteUser/${id}`)
       getUsers()
     } catch (error) {
       console.error(error);
@@ -18,7 +18,7 @@ const UserTable = ({users, getUsers}) => {
   const handleCan = async (user) =>{
     try {
       const newTotal = user.total + 30; // Assuming each can adds 30 to the total
-      await axios.put(`http://localhost:3001/updateCan/${user._id}`, { total: newTotal });
+      await axios.put(`https://mern-crud-server-chi.vercel.app/updateCan/${user._id}`, { total: newTotal });
       getUsers(); // Refresh the user list after updating
     } catch (error) {
       console.error(error);
