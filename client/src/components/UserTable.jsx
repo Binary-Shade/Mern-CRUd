@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Pencil from '../assets/Pencil'
 import Trash from '../assets/Trash'
+import Add from '../assets/Add'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { GiWaterGallon } from "react-icons/gi";
 
 const UserTable = ({users, getUsers}) => {  
   const handleDelete = async(id) => {
@@ -39,7 +39,7 @@ const UserTable = ({users, getUsers}) => {
                   <td className="px-5 py-5 border-b border-gray-200 text-sm flex gap-5"> 
                     <Link to={`/update/${user._id}`}><Pencil header={'update personal information'} id={user._id}/></Link> 
                     <button onClick={()=>handleDelete(user._id)}><Trash /></button>  
-                    <button onClick={()=>handleCan(user)}><GiWaterGallon /></button> 
+                    <button onClick={()=>handleCan(user)}><Add /></button> 
                   </td>
               </tr>
           ))
