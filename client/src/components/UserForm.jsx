@@ -6,9 +6,13 @@ import { useNavigate } from 'react-router-dom'
 const UserForm = ({header, btnName}) => {
   const [firstName, setFirst] = useState('')
   const [lastName, setLast] = useState('')
-  const [age, setAge] = useState('')
-  const [email, setEmail] = useState('')
+  const [cans, setCans] = useState('')
+  const [total, setTotal] = useState(0)
   const navigate = useNavigate()
+
+  useEffect(()=>{
+    setTotal(cans * 30)
+  }, [cans])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,8 +20,8 @@ const UserForm = ({header, btnName}) => {
       const result = await axios.post('http://localhost:3001/Userdb', {
         firstName,
         lastName,
-        email,
-        age
+        cans,
+        total
       });
   
       console.log(result.data);
@@ -53,7 +57,7 @@ const UserForm = ({header, btnName}) => {
 
             <div className="sm:col-span-3">
               <label htmlFor="last-name" className="block text-sm font-medium leading-6 text-gray-900">
-                Last name
+                Identity name
               </label>
               <div className="mt-2">
                 <input
@@ -66,32 +70,18 @@ const UserForm = ({header, btnName}) => {
                 />
               </div>
             </div>
-            <div className="sm:col-span-4">
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  value={email}
-                  onChange={(e)=>setEmail(e.target.value)}
-                  type="text"
-                  autoComplete="email"
-                  placeholder='enter email-address'
-                  className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
             <div className="col-span-full">
               <label htmlFor="street-address" className="block text-sm font-medium leading-6 text-gray-900">
-                age
+                cans count :
               </label>
               <div className="mt-2">
                 <input
-                  value={age}
-                  onChange={(e)=>setAge(e.target.value)}
-                  type="text"
+                  value={cans}
+                  onChange={(e)=>setCans(e.target.value)}
+                  type="number"
                   autoComplete="street-address"
-                  placeholder='enter your age'
+                  placeholder='enter can count'
+                  required
                   className="pl-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
               </div>
